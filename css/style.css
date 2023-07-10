@@ -1,0 +1,20 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Adjust the number of columns based on your preference */
+  gap: 10px; /* Adjust the gap between cells based on your preference */
+  background-color: #f0f0f0; /* Adjust the background color of the grid */
+  padding: 20px;
+  margin: 0 auto;
+  width: 500px; /* Adjust the width of the grid based on your preference */
+}
+
+.cell {
+  width: 60px; /* Adjust the width of the cells based on your preference */
+  height: 60px; /* Adjust the height of the cells based on your preference */
+  border-radius: 50%; /* Adjust the border radius for a circular appearance */
+  background-color: #ffffff; /* Adjust the background color of the cells */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
