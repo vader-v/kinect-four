@@ -1,3 +1,11 @@
+#hover-red {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+#hover-blue {
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);

@@ -3,8 +3,33 @@ const columns = Array.from(Array(7).keys()) // Adjust the number of columns if n
 let currentPlayer = 'blue'
 let gameEnded = false
 
-function handleClick(event) {
-  if (gameEnded) return // Stop handling clicks if the game has ended
+// Hover effect for columns
+function handleColumnHover(event) {
+  if (gameEnded) return;
+
+  const hoveredCell = event.target.closest('.cell');
+  if (!hoveredCell) return;
+
+  const columnIndex = Array.from(hoveredCell.parentNode.children).indexOf(hoveredCell) % columns.length;
+
+  const columnCells = Array.from(cells).filter(cell => parseInt(cell.getAttribute('data-x')) === columnIndex);
+
+  // Remove the 'hover-red' and 'hover-blue' IDs from all cells in the grid
+  cells.forEach(cell => {
+    cell.removeAttribute('id');
+  });
+
+  // Add the 'hover-red' or 'hover-blue' ID to the bottom-most unoccupied cell in the column
+  const bottomUnoccupiedCell = columnCells.reverse().find(cell => !cell.classList.contains('red') && !cell.classList.contains('blue'));
+  if (bottomUnoccupiedCell) {
+    bottomUnoccupiedCell.setAttribute('id', `hover-${currentPlayer}`);
+  }
+}
+
+
+// Function to handle cell click
+function handleCellClick(event) {
+  if (gameEnded) return
 
   const clickedCell = event.target.closest('.cell')
   if (!clickedCell) return
@@ -12,6 +37,12 @@ function handleClick(event) {
   const columnIndex = Array.from(clickedCell.parentNode.children).indexOf(clickedCell) % columns.length
 
   const columnCells = Array.from(cells).filter((_, index) => index % columns.length === columnIndex)
+
+  // Remove the hover IDs from the previously clicked cell
+  const previouslyClickedCell = document.querySelector('#hover-red, #hover-blue')
+  if (previouslyClickedCell) {
+    previouslyClickedCell.removeAttribute('id')
+  }
 
   // Find the lowest unoccupied cell in the column
   let lowestUnoccupiedCell = null
@@ -25,7 +56,6 @@ function handleClick(event) {
 
   if (lowestUnoccupiedCell) {
     // Update the class of the lowest unoccupied cell
-    lowestUnoccupiedCell.classList.remove('red', 'blue')
     lowestUnoccupiedCell.classList.add(currentPlayer)
 
     // Swap the current player and assign the next color class
@@ -35,8 +65,36 @@ function handleClick(event) {
     const playerIndicator = document.getElementById('player-indicator')
     playerIndicator.textContent = `Current Player: ${currentPlayer}`
 
+    // Remove the hover IDs from the previously hovered cell
+    const previouslyHoveredCell = document.querySelector('#hover-red, #hover-blue')
+    if (previouslyHoveredCell) {
+      previouslyHoveredCell.removeAttribute('id')
+    }
+
+    // Add the hover ID to the bottom-most unoccupied cell in the column
+    const bottomUnoccupiedCell = columnCells.reverse().find(cell => !cell.classList.contains('red') && !cell.classList.contains('blue'))
+    if (bottomUnoccupiedCell) {
+      bottomUnoccupiedCell.setAttribute('id', `hover-${currentPlayer}`)
+    }
+
     checkWin(lowestUnoccupiedCell) // Check for a win after each click
   }
+}
+
+// Attach event listeners to cells for click and hover effects
+cells.forEach(cell => {
+  cell.addEventListener('click', handleCellClick)
+  cell.addEventListener('mouseover', handleColumnHover)
+  cell.addEventListener('mouseleave', handleColumnLeave)
+})
+
+// Remove hover effect when the mouse leaves a column
+function handleColumnLeave(event) {
+  if (gameEnded) return
+
+  cells.forEach(cell => {
+    cell.removeAttribute('id')
+  })
 }
 
 // Function to check for a win
@@ -115,10 +173,6 @@ function checkWin(lastPlacedCell) {
     }
 }
 
-// Attach click event listener to cells
-cells.forEach((cell) => {
-  cell.addEventListener('click', handleClick)
-})
 
 // Function to display the win message and end the game
 function displayWinMessage(winningColor) {
