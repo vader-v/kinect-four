@@ -192,8 +192,35 @@ function displayWinMessage(winningColor) {
 document.addEventListener('DOMContentLoaded', function() {
   const startScreen = document.querySelector('.start-screen')
   const startButton = document.querySelector('.start-screen button')
+  const resetButton = document.getElementById('reset-button')
+  const ingameResetButton = document.getElementById('ingame-reset-button');
 
   startButton.addEventListener('click', function() {
     startScreen.classList.add('hidden')
   })
+
+  resetButton.addEventListener('click', function() {
+    resetGame()
+  })
+
+
+  ingameResetButton.addEventListener('click', function() {
+  resetGame();
+});
+
+
+  function resetGame() {
+    cells.forEach(cell => {
+      cell.classList.remove('red', 'blue');
+      cell.removeAttribute('id');
+    });
+
+    const playerIndicator = document.getElementById('player-indicator');
+    playerIndicator.textContent = 'Current Player: blue';
+  
+    const winnerMessageDiv = document.querySelector('.winner-message');
+    winnerMessageDiv.classList.add('hidden');
+  
+    gameEnded = false
+  }
 })
