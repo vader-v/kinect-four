@@ -184,3 +184,12 @@ function displayWinMessage(winningColor) {
   winMessage.textContent = `${winningColor} wins!`
   gameEnded = true
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const startScreen = document.querySelector('.start-screen')
+  const startButton = document.querySelector('.start-screen button')
+
+  startButton.addEventListener('click', function() {
+    startScreen.classList.add('hidden')
+  })
+})
