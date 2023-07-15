@@ -91,6 +91,30 @@ button:hover {
   background-color: #0000ff;
 }
 
+.winner-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(0, 0, 0, 0.8);
+  font-size: 90px;
+  padding: 20px;
+  height: 40%;
+  width: 40%;
+  border-radius: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  box-shadow: 0 0 10px white;
+}
+
+.hidden {
+  display: none;
+}
 
 @media (max-width: 900px) {
   .grid {
@@ -105,5 +129,11 @@ button:hover {
 
   #hover-red, #hover-blue {
     background-color: #ffffff;
+  }
+
+  .winner-message{
+    font-size: 50px;
+    height: 40%;
+    width: 60%;
   }
 }

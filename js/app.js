@@ -182,6 +182,10 @@ function checkWin(lastPlacedCell) {
 function displayWinMessage(winningColor) {
   const winMessage = document.getElementById('win-message')
   winMessage.textContent = `${winningColor} wins!`
+
+  const winnerMessageDiv = document.querySelector('.winner-message')
+  winnerMessageDiv.classList.remove('hidden')
+
   gameEnded = true
 }
 
