@@ -3,7 +3,7 @@
 Kinect Four is a simple web-based implementation of the classic Connect Four game. It allows two players to compete against each other in a race to connect four of their colored discs in a row, either horizontally, vertically, or diagonally.
 
 ---
-# To play the deployed version of the app, go [HERE]()!
+# To play the deployed version of the app, go [HERE](https://kinect-four.fly.dev/)!
 
 ## Features
 
