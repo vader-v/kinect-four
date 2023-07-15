@@ -47,4 +47,8 @@
     width: 45px;
     height: 45px;
   }
+
+  #hover-red, #hover-blue {
+    background-color: #ffffff;
+  }
 }
