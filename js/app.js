@@ -77,6 +77,10 @@ function handleCellClick(event) {
       bottomUnoccupiedCell.setAttribute('id', `hover-${currentPlayer}`)
     }
 
+        // Update the grid's shadow color based on the currentPlayer
+        const grid = document.querySelector('.grid');
+        grid.style.boxShadow = `0 0 10px ${currentPlayer === 'red' ? 'red' : 'cyan'}`; // Set the shadow color to red or cyan
+
     checkWin(lowestUnoccupiedCell) // Check for a win after each click
   }
 }

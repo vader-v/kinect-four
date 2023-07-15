@@ -1,24 +1,25 @@
 #hover-red {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(225, 1, 1, 0.5);
 }
 
 #hover-blue {
-  background-color: rgba(0, 0, 255, 0.5);
+  background-color: rgba(1, 1, 255, 0.5);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
-  background-color: #f0f0f0;
+  background-color: darkgrey;
+  border-radius: 20px;
   padding: 20px;
   margin: 0 auto;
-  width: 500px;
+  box-shadow: 0 0 10px cyan;
 }
 
 .cell {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background-color: #ffffff;
   display: flex;
@@ -33,4 +34,17 @@
 
 .blue {
   background-color: #0000ff;
+}
+
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    padding: 10px;
+  }
+
+  .cell {
+    width: 45px;
+    height: 45px;
+  }
 }
