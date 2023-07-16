@@ -10,6 +10,19 @@ body {
   margin-bottom: 20px;
 }
 
+:root {
+  --color1: blue;
+  --color2: red;
+}
+
+.cell.player1 {
+  background-color: var(--color1);
+}
+
+.cell.player2 {
+  background-color: var(--color2);
+}
+
 #player-indicator {
   font-family: "Arial", sans-serif;
   font-size: 24px;
@@ -107,12 +120,43 @@ button:hover {
   transform: translateX(-3px);
 }
 
-#hover-red {
-  background-color: rgba(225, 1, 1, 0.5);
+#color-selection-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#hover-blue {
-  background-color: rgba(1, 1, 255, 0.5);
+.color-picker-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.color-picker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.color-picker-container label {
+  margin-bottom: 5px;
+  margin-right: 20px;
+}
+
+.color-picker-container input {
+  margin-top: 5px;
+}
+
+#color-selection-form button {
+  margin-top: 10px;
+}
+
+#hover-player1 {
+  background-color: rgba(var(--color1-rgb));
+}
+
+#hover-player2 {
+  background-color: rgba(var(--color2-rgb));
 }
 
 .grid {
@@ -137,12 +181,8 @@ button:hover {
   cursor: pointer;
 }
 
-.red {
-  background-color: #ff0000;
-}
-
-.blue {
-  background-color: #0000ff;
+.cell.clicked {
+  background-color: var(--current-color); /* Change the background color to the current color */
 }
 
 .winner-message {
@@ -185,8 +225,8 @@ button:hover {
     height: 45px;
   }
 
-  #hover-red, #hover-blue {
-    background-color: #ffffff;
+  .cell.hover-player1, .cell.hover-player2 {
+    background-color: #ffffff !important;
   }
 
   .winner-message{
