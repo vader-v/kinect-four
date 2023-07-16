@@ -257,6 +257,8 @@ document.addEventListener('DOMContentLoaded', function() {
       cell.style.opacity = '1'
     })
   
+    currentPlayer = 'player1'
+
     const playerIndicator = document.getElementById('player-indicator')
     playerIndicator.textContent = 'Current Player: Player 1'
   
