@@ -225,7 +225,7 @@ button:hover {
     height: 45px;
   }
 
-  .cell.hover-player1, .cell.hover-player2 {
+  #hover-player1, #hover-player2 {
     background-color: #ffffff !important;
   }
 
