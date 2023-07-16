@@ -71,6 +71,7 @@ function handleCellClick(event) {
     lowestUnoccupiedCell.classList.add(currentPlayer)
     lowestUnoccupiedCell.style.backgroundColor = currentPlayer === 'player1' ? currentColors.color1 : currentColors.color2
 
+    checkWin(lowestUnoccupiedCell) // Check for a win after each click
     // Swap the current player and assign the next color class
     currentPlayer = currentPlayer === 'player1' ? 'player2' : 'player1'
 
@@ -96,8 +97,6 @@ function handleCellClick(event) {
     // Update the grid's shadow color based on the currentPlayer
     const grid = document.querySelector('.grid')
     grid.style.boxShadow = `0 0 10px ${currentPlayer === 'player1' ? currentColors.color1 : currentColors.color2}`
-
-    checkWin(lowestUnoccupiedCell) // Check for a win after each click
   }
 }
 
@@ -122,76 +121,76 @@ function handleColumnLeave(event) {
 
 function checkWin(lastPlacedCell) {
   const currentColor = lastPlacedCell.classList[1] // Assuming the color class is the second class
-  const rowIndex = Array.from(cells).indexOf(lastPlacedCell) % columns.length;
-  const columnIndex = Math.floor(Array.from(cells).indexOf(lastPlacedCell) / columns.length);
+  const rowIndex = Array.from(cells).indexOf(lastPlacedCell) % columns.length
+  const columnIndex = Math.floor(Array.from(cells).indexOf(lastPlacedCell) / columns.length)
 
   // Check for horizontal win
-  let consecutiveCount = 0;
+  let consecutiveCount = 0
   for (let x = 0; x < columns.length; x++) {
-    const cell = document.querySelector(`.cell[data-x="${x}"][data-y="${columnIndex}"]`);
+    const cell = document.querySelector(`.cell[data-x="${x}"][data-y="${columnIndex}"]`)
     if (cell.classList.contains(currentColor)) {
-      consecutiveCount++;
+      consecutiveCount++
       if (consecutiveCount === 4) {
-        displayWinMessage(currentColor);
-        return;
+        displayWinMessage(currentColor)
+        return
       }
     } else {
-      consecutiveCount = 0;
+      consecutiveCount = 0
     }
   }
 
   // Check for vertical win
-  consecutiveCount = 0;
+  consecutiveCount = 0
   for (let y = 0; y < columns.length; y++) {
-    const cell = document.querySelector(`.cell[data-x="${rowIndex}"][data-y="${y}"]`);
+    const cell = document.querySelector(`.cell[data-x="${rowIndex}"][data-y="${y}"]`)
     if (cell.classList.contains(currentColor)) {
-      consecutiveCount++;
+      consecutiveCount++
       if (consecutiveCount === 4) {
-        displayWinMessage(currentColor);
-        return;
+        displayWinMessage(currentColor)
+        return
       }
     } else {
-      consecutiveCount = 0;
+      consecutiveCount = 0
     }
   }
 
   // Check for diagonal wins
-  const diagonalLines = [];
+  const diagonalLines = []
 
   // Diagonal lines from top-left to bottom-right
   for (let x = 0; x <= columns.length - 4; x++) {
     for (let y = 0; y <= columns.length - 4; y++) {
-      const line = [];
+      const line = []
       for (let i = 0; i < 4; i++) {
-        const cellX = x + i;
-        const cellY = y + i;
-        const cell = document.querySelector(`.cell[data-x="${cellX}"][data-y="${cellY}"]`);
-        line.push(cell);
+        const cellX = x + i
+        const cellY = y + i
+        const cell = document.querySelector(`.cell[data-x="${cellX}"][data-y="${cellY}"]`)
+        line.push(cell)
       }
-      diagonalLines.push(line);
+      diagonalLines.push(line)
     }
   }
 
   // Diagonal lines from top-right to bottom-left
   for (let x = 3; x <= columns.length - 1; x++) {
     for (let y = 0; y <= columns.length - 4; y++) {
-      const line = [];
+      const line = []
       for (let i = 0; i < 4; i++) {
-        const cellX = x - i;
-        const cellY = y + i;
-        const cell = document.querySelector(`.cell[data-x="${cellX}"][data-y="${cellY}"]`);
-        line.push(cell);
+        const cellX = x - i
+        const cellY = y + i
+        const cell = document.querySelector(`.cell[data-x="${cellX}"][data-y="${cellY}"]`)
+        line.push(cell)
       }
-      diagonalLines.push(line);
+      diagonalLines.push(line)
     }
   }
 
   // Iterate over the diagonal lines and check for a win
   for (const line of diagonalLines) {
-    const matchedCells = line.filter(cell => cell.classList.contains(currentColor));
+    const matchedCells = line.filter(cell => cell.classList.contains(currentColor))
     if (matchedCells.length === 4) {
-      displayWinMessage(currentColor);
-      return;
+      displayWinMessage(currentColor)
+      return
     }
   }
 }
@@ -200,7 +199,7 @@ function checkWin(lastPlacedCell) {
 // Function to display the win message and end the game
 function displayWinMessage(winningColor) {
   const winMessage = document.getElementById('win-message')
-  winMessage.textContent = `${winningColor === currentColors.color1 ? 'Player 1' : 'Player 2'} wins!`
+  winMessage.textContent = `Player ${currentPlayer === 'player1' ? '1' : '2'} wins!`
 
   const winnerMessageDiv = document.querySelector('.winner-message')
   winnerMessageDiv.classList.remove('hidden')
@@ -252,21 +251,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function resetGame() {
     cells.forEach(cell => {
-      cell.classList.remove('clicked', 'player1', 'player2'); // Remove 'player1' and 'player2' class names
-      cell.removeAttribute('id');
-    });
+      cell.classList.remove('clicked', 'player1', 'player2')
+      cell.removeAttribute('id')
+      cell.style.backgroundColor = ''
+      cell.style.opacity = '1'
+    })
   
-    const root = document.documentElement;
-    root.style.setProperty('--color1', currentColors.color1);
-    root.style.setProperty('--color2', currentColors.color2);
+    const playerIndicator = document.getElementById('player-indicator')
+    playerIndicator.textContent = 'Current Player: Player 1'
   
-    const playerIndicator = document.getElementById('player-indicator');
-    playerIndicator.textContent = 'Current Player: Player 1';
+    const winnerMessageDiv = document.querySelector('.winner-message')
+    winnerMessageDiv.classList.add('hidden')
   
-    const winnerMessageDiv = document.querySelector('.winner-message');
-    winnerMessageDiv.classList.add('hidden');
-  
-    gameEnded = false;
+    gameEnded = false
   }
 
   function selectColors() {
@@ -300,12 +297,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (colorDifference < colorDifferenceThreshold) {
-      colorErrorMessage.textContent = 'Please choose colors that are visually distinct from each other.';
-      return false;
+      colorErrorMessage.textContent = 'Please choose colors that are visually distinct from each other.'
+      return false
     }
 
-    colorErrorMessage.textContent = ''; // Clear the error message if colors are valid
-    return true;
+    colorErrorMessage.textContent = '' // Clear the error message if colors are valid
+    return true
   }
 
   function hexToRgb(hex) {
