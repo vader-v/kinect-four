@@ -72,6 +72,7 @@ function handleCellClick(event) {
     lowestUnoccupiedCell.style.backgroundColor = currentPlayer === 'player1' ? currentColors.color1 : currentColors.color2
 
     checkWin(lowestUnoccupiedCell) // Check for a win after each click
+    if(gameEnded) return
     // Swap the current player and assign the next color class
     currentPlayer = currentPlayer === 'player1' ? 'player2' : 'player1'
 
