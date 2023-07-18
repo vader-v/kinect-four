@@ -98,6 +98,8 @@ function handleCellClick(event) {
     // Update the grid's shadow color based on the currentPlayer
     const grid = document.querySelector('.grid')
     grid.style.boxShadow = `0 0 10px ${currentPlayer === 'player1' ? currentColors.color1 : currentColors.color2}`
+
+    checkWin(lowestUnoccupiedCell) // Check for a win after each click
   }
 }
 
@@ -260,6 +262,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
     currentPlayer = 'player1'
 
+    const root = document.documentElement;
+    root.style.setProperty('--color1', currentColors.color1)
+    root.style.setProperty('--color2', currentColors.color2)
+  
     const playerIndicator = document.getElementById('player-indicator')
     playerIndicator.textContent = 'Current Player: Player 1'
   
