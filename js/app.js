@@ -210,7 +210,7 @@ function displayWinMessage(winningColor) {
   gameEnded = true
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+
   const startScreen = document.querySelector('.start-screen')
   const startButton = document.querySelector('.start-screen button')
   const resetButton = document.getElementById('reset-button')
@@ -327,4 +327,3 @@ document.addEventListener('DOMContentLoaded', function() {
       b: parseInt(result[3], 16)
     } : null
   }
-})
